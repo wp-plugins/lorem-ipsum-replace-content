@@ -3,7 +3,7 @@
 Plugin Name: Lorem Ipsum Replace Content
 Plugin URI: http://circlecube.com
 Description: Replace your content with lorem ipsum, word for word.
-Version: 0.2
+Version: 0.3
 Author: Evan Mullins
 Author Email: evan@circlecube.com
 License: GPLv2 or later
@@ -95,19 +95,25 @@ class LoremIpsumReplaceContent {
 		$findme1 = '<';
 		$findme2 = '>';
 		$findme3 = '</';
+		$findme4 = '[';
+		$findme5 = ']';
 		//shuffle( $source );
 		$words = explode(' ', $content);
 		$words_length = count($words);
 		$html_words = array();
 		for ($i=0; $i < $words_length; $i++){
-			$html1 = $html2 = $html3 = false;
+			$html1 = $html2 = $html3 = $html4 = $html5 = false;
 			$html1 = strpos($words[$i], $findme1);
 			$html2 = strpos($words[$i], $findme2);
 			$html3 = strpos($words[$i], $findme3);
+			$html4 = strpos($words[$i], $findme4);
+			$html5 = strpos($words[$i], $findme5);
 
 			//if doesn't include html entitity replace the word
 			if ( $html1 === false ){
-				$words[$i] = $source[rand(0, $source_length)];
+				if ( $html4 === false && $html5 === false ) {
+					$words[$i] = $source[rand(0, $source_length)];
+				}
 			}
 			//if has html entity
 			else{
